@@ -5,12 +5,19 @@ import { Button } from "@/components/ui/button";
 import { SendIcon } from "./Icons";
 
 export default function PostForm() {
+
+async function  addPostAction(formData:FormData) {
+  "use server";
+const postText = formData.get("post")
+}
+
   return (
     <div className="flex items-center gap-4">
       <Avatar className="w-10 h-10">
         <AvatarImage src="/placeholder-user.jpg" />
         <AvatarFallback>AC</AvatarFallback>
       </Avatar>
+    <form action={addPostAction} className="flex items-center flex-1">
       <Input
         type="text"
         placeholder="What's on your mind?"
@@ -21,6 +28,7 @@ export default function PostForm() {
         <SendIcon className="h-5 w-5 text-muted-foreground" />
         <span className="sr-only">Tweet</span>
       </Button>
+      </form>
     </div>
   );
 }
