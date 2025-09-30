@@ -3,12 +3,26 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SendIcon } from "./Icons";
+import { prisma } from "@/lib/prisma";
 
 export default function PostForm() {
-
+const {userId} = auth();
 async function  addPostAction(formData:FormData) {
   "use server";
-const postText = formData.get("post")
+const postText = formData.get("post") as string;
+if(!userId){
+return;
+}
+try{
+  await prisma.post.create({
+    data:{
+      content: postText,
+      authorId:userId,
+    },
+  });
+}catch(err){
+
+}
 }
 
   return (
